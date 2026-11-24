@@ -37,7 +37,7 @@ function saveResources(resources) {
   }
 }
 
-// Health check endpoint for Render monitoring
+// Health check endpoint for Render/Vercel monitoring
 app.get('/api/health', (req, res) => {
   res.json({
     status: 'ok',
@@ -46,21 +46,16 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-// GET all resources (with optional ?q= search filter and ?category= filter)
+// GET all resources
 app.get('/api/resources', (req, res) => {
   let resources = getResources();
-  const { q, category } = req.query;
-
-  if (category && category !== 'All') {
-    resources = resources.filter(r => r.category && r.category.toLowerCase() === category.toLowerCase());
-  }
+  const { q } = req.query;
 
   if (q) {
     const query = q.toLowerCase();
     resources = resources.filter(r =>
       (r.title && r.title.toLowerCase().includes(query)) ||
-      (r.subtitle && r.subtitle.toLowerCase().includes(query)) ||
-      (r.category && r.category.toLowerCase().includes(query))
+      (r.subtitle && r.subtitle.toLowerCase().includes(query))
     );
   }
 
@@ -71,51 +66,35 @@ app.get('/api/resources', (req, res) => {
   });
 });
 
-// GET resource categories
-app.get('/api/categories', (req, res) => {
-  const resources = getResources();
-  const categories = Array.from(new Set(resources.map(r => r.category || 'General'))).filter(Boolean);
-  res.json({
-    success: true,
-    data: ['All', ...categories]
-  });
-});
+// PUT /api/resources/:id - Update resource globally & publicly
+app.put('/api/resources/:id', (req, res) => {
+  const resourceId = parseInt(req.params.id, 10);
+  const { title, subtitle, url } = req.body;
 
-// GET single resource by ID
-app.get('/api/resources/:id', (req, res) => {
-  const resources = getResources();
-  const resource = resources.find(r => r.id === parseInt(req.params.id, 10));
-  if (!resource) {
-    return res.status(404).json({ success: false, error: 'Resource not found' });
-  }
-  res.json({ success: true, data: resource });
-});
-
-// POST add new resource
-app.post('/api/resources', (req, res) => {
-  const { title, subtitle, url, icon, category } = req.body;
   if (!title || !url) {
     return res.status(400).json({ success: false, error: 'Title and URL are required' });
   }
 
   const resources = getResources();
-  const nextId = resources.length > 0 ? Math.max(...resources.map(r => r.id || 0)) + 1 : 1;
+  const index = resources.findIndex(r => r.id === resourceId);
 
-  const newResource = {
-    id: nextId,
-    title: title.trim(),
-    subtitle: subtitle ? subtitle.trim() : '',
-    icon: icon ? icon.trim() : '🔗',
-    category: category ? category.trim() : 'General',
-    url: url.trim()
-  };
-
-  resources.push(newResource);
-  if (!saveResources(resources)) {
-    return res.status(500).json({ success: false, error: 'Failed to persist resource' });
+  if (index === -1) {
+    return res.status(404).json({ success: false, error: 'Resource not found' });
   }
 
-  res.status(201).json({ success: true, data: newResource });
+  // Update resource fields
+  resources[index].title = title.trim();
+  resources[index].subtitle = subtitle ? subtitle.trim() : '';
+  resources[index].url = url.trim();
+
+  if (!saveResources(resources)) {
+    return res.status(500).json({ success: false, error: 'Failed to update resource file' });
+  }
+
+  res.json({
+    success: true,
+    data: resources[index]
+  });
 });
 
 // Serve frontend for root or any unhandled route
@@ -123,6 +102,11 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-app.listen(PORT, () => {
-  console.log(`CHP Resource Hub server running on port ${PORT}`);
-});
+// Export app for serverless platforms (like Vercel)
+module.exports = app;
+
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`CHP Resource Hub server running on port ${PORT}`);
+  });
+}

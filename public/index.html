@@ -283,7 +283,7 @@ body {
     }
 }
 
-/* Per-resource editing controls: the original resource card design is retained. */
+/* Per-resource editing controls */
 .resource-card-wrap {
     position: relative;
     min-width: 0;
@@ -382,7 +382,6 @@ body {
 }
 .resource-save { background: #145c43; color: #fff; }
 .resource-cancel { background: #edf4ef; color: #244a39; }
-.resource-download { background: #f3eee1; color: #5a4824; }
 .resource-editor-status {
     min-height: 16px;
     margin: 12px 0 0;
@@ -393,7 +392,6 @@ body {
 @media(max-width:550px) {
     .resource-edit-button { top: 7px; right: 7px; }
 }
-
 </style>
 </head>
 
@@ -421,7 +419,7 @@ body {
     <!-- RESOURCES -->
     <div class="section-heading">
         <h2>Essential Resources</h2>
-        <span>QUICK ACCESS PORTAL</span>
+        <span id="resourceCountText">QUICK ACCESS PORTAL</span>
     </div>
 
     <!-- SEARCH -->
@@ -436,119 +434,11 @@ body {
 
     <!-- LINK CARDS -->
     <div class="link-container" id="linkContainer">
+        <!-- Rendered dynamically from server API -->
+    </div>
 
-        <div class="resource-card-wrap"><a class="link-card"
-           href="https://studentbridgew.sharepoint.com/:x:/s/CommunityHealthPrevention/IQA6cERn_T9xTaCZkqyyP52PAdrAQMnfyZ_MexRJVPSOHD0?email=SGARCIACHINGO%40student.bridgew.edu&e=Ip2vjP&isSPOFile=1&ovuser=48ec3bf8-d165-4eab-bbee-f8d5307f46e1%2CUJANGAM%40bridgew.edu&wdExp=TEAMS-TREATMENT&web=1&clickparams=eyJBcHBOYW1lIjoiVGVhbXMtV2ViIiwiQXBwVmVyc2lvbiI6IjE0MTUvMjYxMDAyMTIwMTgifQ%3D%3D"
-           target="_blank" rel="noopener noreferrer">
-            <div class="icon-box">📊</div>
-            <div class="card-info">
-                <div class="card-number">RESOURCE 01</div>
-                <div class="card-title">Inventory Tracker</div>
-                <div class="card-subtitle">Inventory & stock management</div>
-            </div>
-            <div class="arrow">›</div>
-        </a><button type="button" class="resource-edit-button" aria-label="Edit this resource" title="Edit this resource">Edit</button></div>
-
-        <div class="resource-card-wrap"><a class="link-card"
-           href="https://drive.google.com/drive/folders/1IE618Otm6s4WpN8gnMIKKbkp7pvTE14i"
-           target="_blank" rel="noopener noreferrer">
-            <div class="icon-box">📚</div>
-            <div class="card-info">
-                <div class="card-number">RESOURCE 02</div>
-                <div class="card-title">Literature Folder</div>
-                <div class="card-subtitle">Educational materials & literature</div>
-            </div>
-            <div class="arrow">›</div>
-        </a><button type="button" class="resource-edit-button" aria-label="Edit this resource" title="Edit this resource">Edit</button></div>
-
-        <div class="resource-card-wrap"><a class="link-card"
-           href="https://iqtechportal.com/Machine"
-           target="_blank" rel="noopener noreferrer">
-            <div class="icon-box">⚙️</div>
-            <div class="card-info">
-                <div class="card-number">RESOURCE 03</div>
-                <div class="card-title">IQ Tech Portal</div>
-                <div class="card-subtitle">Machine management portal</div>
-            </div>
-            <div class="arrow">›</div>
-        </a><button type="button" class="resource-edit-button" aria-label="Edit this resource" title="Edit this resource">Edit</button></div>
-
-        <div class="resource-card-wrap"><a class="link-card"
-           href="https://www.avery.com/account/projects"
-           target="_blank" rel="noopener noreferrer">
-            <div class="icon-box">🏷️</div>
-            <div class="card-info">
-                <div class="card-number">RESOURCE 04</div>
-                <div class="card-title">Avery Projects</div>
-                <div class="card-subtitle">Labels & design projects</div>
-            </div>
-            <div class="arrow">›</div>
-        </a><button type="button" class="resource-edit-button" aria-label="Edit this resource" title="Edit this resource">Edit</button></div>
-
-        <div class="resource-card-wrap"><a class="link-card"
-           href="https://form.jotform.com/260143993326156"
-           target="_blank" rel="noopener noreferrer">
-            <div class="icon-box">📝</div>
-            <div class="card-info">
-                <div class="card-number">RESOURCE 05</div>
-                <div class="card-title">CHP Order Form</div>
-                <div class="card-subtitle">Submit supply orders</div>
-            </div>
-            <div class="arrow">›</div>
-        </a><button type="button" class="resource-edit-button" aria-label="Edit this resource" title="Edit this resource">Edit</button></div>
-
-        <div class="resource-card-wrap"><a class="link-card"
-           href="https://studentbridgew.sharepoint.com/:w:/r/sites/CommunityHealthPrevention/_layouts/15/Doc.aspx?action=edit&sourcedoc=%7B3c70191b-8725-4df5-a61a-d01f5ba385ca%7D&wdExp=TEAMS-TREATMENT&web=1"
-           target="_blank" rel="noopener noreferrer">
-            <div class="icon-box">🔐</div>
-            <div class="card-info">
-                <div class="card-number">RESOURCE 06</div>
-                <div class="card-title">CHP Platforms Credentials</div>
-                <div class="card-subtitle">Platform access information</div>
-            </div>
-            <div class="arrow">›</div>
-        </a><button type="button" class="resource-edit-button" aria-label="Edit this resource" title="Edit this resource">Edit</button></div>
-
-        <div class="resource-card-wrap"><a class="link-card"
-           href="https://studentbridgew.sharepoint.com/sites/HealthPromotion"
-           target="_blank" rel="noopener noreferrer">
-            <div class="icon-box">🏛️</div>
-            <div class="card-info">
-                <div class="card-number">RESOURCE 07</div>
-                <div class="card-title">About CHP</div>
-                <div class="card-subtitle">CHP information & overview</div>
-            </div>
-            <div class="arrow">›</div>
-        </a><button type="button" class="resource-edit-button" aria-label="Edit this resource" title="Edit this resource">Edit</button></div>
-
-        <div class="resource-card-wrap"><a class="link-card"
-           href="https://www.jotform.com/app/252333785202150"
-           target="_blank" rel="noopener noreferrer">
-            <div class="icon-box">📅</div>
-            <div class="card-info">
-                <div class="card-number">RESOURCE 08</div>
-                <div class="card-title">SVAS Center App</div>
-                <div class="card-subtitle">App to Order Vending Machines Supplies</div>
-            </div>
-            <div class="arrow">›</div>
-        </a><button type="button" class="resource-edit-button" aria-label="Edit this resource" title="Edit this resource">Edit</button></div>
-
-        <div class="resource-card-wrap"><a class="link-card"
-           href="https://studentbridgew.sharepoint.com/:f:/r/sites/CommunityHealthPrevention/Shared%20Documents/CHP%20Resources%20and%20Initiatives/CHP%20New%20Student%20Employee%20Training?d=wc78bbb515ac64b6a85543828f055afa1&csf=1&web=1&e=JiKuVs"
-           target="_blank" rel="noopener noreferrer">
-            <div class="icon-box">📁</div>
-            <div class="card-info">
-                <div class="card-number">RESOURCE 09</div>
-                <div class="card-title">Student Guides & Attachments</div>
-                <div class="card-subtitle">Training & onboarding documents</div>
-            </div>
-            <div class="arrow">›</div>
-        </a><button type="button" class="resource-edit-button" aria-label="Edit this resource" title="Edit this resource">Edit</button></div>
-
-        <div class="no-results" id="noResults">
-            No matching resources found. Try another search.
-        </div>
-
+    <div class="no-results" id="noResults">
+        No matching resources found. Try another search.
     </div>
 
     <!-- FOOTER -->
@@ -563,12 +453,12 @@ body {
 </div>
 
 
-<!-- Individual resource editor -->
+<!-- Individual resource editor modal -->
 <div class="resource-editor-backdrop" id="resourceEditorBackdrop" hidden>
     <section class="resource-editor" role="dialog" aria-modal="true"
              aria-labelledby="resourceEditorTitle">
         <h2 id="resourceEditorTitle">Edit resource</h2>
-        <p class="editor-intro">Update this resource's information. The card design will stay the same.</p>
+        <p class="editor-intro">Update this resource's information. Changes will be saved globally and visible to everyone.</p>
         <form id="resourceEditorForm">
             <label for="resourceTitleInput">Card title</label>
             <input id="resourceTitleInput" type="text" maxlength="100" required>
@@ -580,7 +470,7 @@ body {
             <input id="resourceUrlInput" type="url" placeholder="https://..." required>
 
             <div class="resource-editor-actions">
-                <button type="submit" class="resource-save">Save changes</button>
+                <button type="submit" class="resource-save" id="saveButton">Save changes</button>
                 <button type="button" class="resource-cancel" id="cancelResourceEdit">Cancel</button>
             </div>
             <p class="resource-editor-status" id="resourceEditorStatus" role="status" aria-live="polite"></p>
@@ -588,159 +478,176 @@ body {
     </section>
 </div>
 
-
 <script>
-let currentlyEditingCard = null;
-
-const RESOURCE_STORAGE_KEY = "chp-resource-hub-personal-edits-v1";
-const resourceCards = Array.from(document.querySelectorAll(".link-card"));
-
-function searchLinks() {
-    const input = document.getElementById("searchInput").value.toLowerCase();
-    const cards = document.querySelectorAll(".link-card");
-    let visibleCount = 0;
-
-    cards.forEach(card => {
-        const matches = card.innerText.toLowerCase().includes(input);
-        card.parentElement.style.display = matches ? "" : "none";
-        if (matches) visibleCount++;
-    });
-
-    document.getElementById("noResults").style.display =
-        visibleCount === 0 ? "block" : "none";
-}
-
-/* Restore this person's saved card information when this HTML file is opened. */
-function restorePersonalEdits() {
-    try {
-        const saved = JSON.parse(localStorage.getItem(RESOURCE_STORAGE_KEY) || "{}");
-
-        resourceCards.forEach((card, index) => {
-            const item = saved[index];
-            if (!item) return;
-
-            if (typeof item.title === "string") {
-                card.querySelector(".card-title").textContent = item.title;
-            }
-            if (typeof item.subtitle === "string") {
-                card.querySelector(".card-subtitle").textContent = item.subtitle;
-            }
-            if (typeof item.url === "string") {
-                card.href = item.url;
-            }
-
-            const editButton = card.parentElement.querySelector(".resource-edit-button");
-            if (editButton) {
-                editButton.setAttribute(
-                    "aria-label",
-                    "Edit " + card.querySelector(".card-title").textContent
-                );
-            }
-        });
-    } catch (error) {
-        console.warn("Personal resource edits could not be restored in this browser.", error);
-    }
-}
-
-/* Save all current cards to this browser only. */
-function savePersonalEdits() {
-    const saved = {};
-
-    resourceCards.forEach((card, index) => {
-        saved[index] = {
-            title: card.querySelector(".card-title").textContent,
-            subtitle: card.querySelector(".card-subtitle").textContent,
-            url: card.getAttribute("href")
-        };
-    });
-
-    try {
-        localStorage.setItem(RESOURCE_STORAGE_KEY, JSON.stringify(saved));
-        return true;
-    } catch (error) {
-        console.error("Could not save personal resource edits.", error);
-        return false;
-    }
-}
+let currentResources = [];
+let editingResourceId = null;
 
 const editorBackdrop = document.getElementById("resourceEditorBackdrop");
 const editorForm = document.getElementById("resourceEditorForm");
 const editorStatus = document.getElementById("resourceEditorStatus");
+const saveButton = document.getElementById("saveButton");
 
-restorePersonalEdits();
+// Fetch live resources from the server
+async function loadResources() {
+    try {
+        const response = await fetch('/api/resources');
+        const result = await response.json();
+        if (result.success && Array.isArray(result.data)) {
+            currentResources = result.data;
+            renderCards(currentResources);
+        }
+    } catch (err) {
+        console.error("Could not fetch resources from backend:", err);
+    }
+}
 
-document.querySelectorAll(".resource-edit-button").forEach(button => {
-    button.addEventListener("click", () => {
-        currentlyEditingCard = button.parentElement.querySelector(".link-card");
+// Render resource cards to the UI
+function renderCards(resources) {
+    const container = document.getElementById("linkContainer");
+    const noResults = document.getElementById("noResults");
 
-        document.getElementById("resourceEditorTitle").textContent =
-            "Edit " + currentlyEditingCard.querySelector(".card-title").textContent;
-        document.getElementById("resourceTitleInput").value =
-            currentlyEditingCard.querySelector(".card-title").textContent;
-        document.getElementById("resourceSubtitleInput").value =
-            currentlyEditingCard.querySelector(".card-subtitle").textContent;
-        document.getElementById("resourceUrlInput").value =
-            currentlyEditingCard.getAttribute("href");
+    if (!resources || resources.length === 0) {
+        container.innerHTML = "";
+        noResults.style.display = "block";
+        return;
+    }
 
-        editorStatus.textContent = "";
-        editorBackdrop.hidden = false;
-        document.getElementById("resourceTitleInput").focus();
+    noResults.style.display = "none";
+    container.innerHTML = resources.map((item, index) => {
+        const displayNumber = item.id < 10 ? `0${item.id}` : `${item.id}`;
+        return `
+            <div class="resource-card-wrap" data-id="${item.id}">
+                <a class="link-card" href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer">
+                    <div class="icon-box">${item.icon || '🔗'}</div>
+                    <div class="card-info">
+                        <div class="card-number">RESOURCE ${displayNumber}</div>
+                        <div class="card-title">${escapeHtml(item.title)}</div>
+                        <div class="card-subtitle">${escapeHtml(item.subtitle || '')}</div>
+                    </div>
+                    <div class="arrow">›</div>
+                </a>
+                <button type="button" class="resource-edit-button" onclick="openEditor(${item.id})" aria-label="Edit ${escapeHtml(item.title)}" title="Edit this resource">Edit</button>
+            </div>
+        `;
+    }).join("");
+}
+
+// Live search filter
+function searchLinks() {
+    const query = document.getElementById("searchInput").value.toLowerCase();
+    const cards = document.querySelectorAll(".resource-card-wrap");
+    let visibleCount = 0;
+
+    cards.forEach(card => {
+        const matches = card.innerText.toLowerCase().includes(query);
+        card.style.display = matches ? "" : "none";
+        if (matches) visibleCount++;
     });
-});
+
+    document.getElementById("noResults").style.display = visibleCount === 0 ? "block" : "none";
+}
+
+// Open modal for editing a specific card
+function openEditor(id) {
+    const item = currentResources.find(r => r.id === id);
+    if (!item) return;
+
+    editingResourceId = id;
+    document.getElementById("resourceEditorTitle").textContent = "Edit " + item.title;
+    document.getElementById("resourceTitleInput").value = item.title;
+    document.getElementById("resourceSubtitleInput").value = item.subtitle || "";
+    document.getElementById("resourceUrlInput").value = item.url;
+
+    editorStatus.textContent = "";
+    editorStatus.style.color = "#38694f";
+    editorBackdrop.hidden = false;
+    document.getElementById("resourceTitleInput").focus();
+}
 
 function closeResourceEditor() {
     editorBackdrop.hidden = true;
-    currentlyEditingCard = null;
+    editingResourceId = null;
 }
 
 document.getElementById("cancelResourceEdit").addEventListener("click", closeResourceEditor);
-
 editorBackdrop.addEventListener("click", event => {
     if (event.target === editorBackdrop) closeResourceEditor();
 });
 
-editorForm.addEventListener("submit", event => {
+// Handle saving globally to the server
+editorForm.addEventListener("submit", async event => {
     event.preventDefault();
-    if (!currentlyEditingCard) return;
+    if (!editingResourceId) return;
 
     const title = document.getElementById("resourceTitleInput").value.trim();
     const subtitle = document.getElementById("resourceSubtitleInput").value.trim();
     const url = document.getElementById("resourceUrlInput").value.trim();
 
-    let parsedUrl;
     try {
-        parsedUrl = new URL(url);
+        const parsedUrl = new URL(url);
         if (!["http:", "https:"].includes(parsedUrl.protocol)) throw new Error();
     } catch (_) {
-        editorStatus.textContent = "Enter a valid link beginning with https://";
+        editorStatus.style.color = "#c0392b";
+        editorStatus.textContent = "Please enter a valid link beginning with https://";
         return;
     }
 
     if (!title || !subtitle) {
-        editorStatus.textContent = "Please complete the title and subtitle.";
+        editorStatus.style.color = "#c0392b";
+        editorStatus.textContent = "Please complete both the title and subtitle.";
         return;
     }
 
-    currentlyEditingCard.href = parsedUrl.href;
-    currentlyEditingCard.querySelector(".card-title").textContent = title;
-    currentlyEditingCard.querySelector(".card-subtitle").textContent = subtitle;
+    saveButton.disabled = true;
+    saveButton.textContent = "Saving...";
 
-    const editButton = currentlyEditingCard.parentElement.querySelector(".resource-edit-button");
-    editButton.setAttribute("aria-label", "Edit " + title);
+    try {
+        const res = await fetch(`/api/resources/${editingResourceId}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ title, subtitle, url })
+        });
 
-    if (savePersonalEdits()) {
-        editorStatus.textContent =
-            "Saved! Your changes are updated on this page and stored in this browser for your next visit.";
-    } else {
-        editorStatus.textContent =
-            "The card is updated for this session, but this browser blocked local saving. Check browser storage settings.";
+        const data = await res.json();
+        if (data.success) {
+            editorStatus.style.color = "#38694f";
+            editorStatus.textContent = "✓ Saved globally! All users will now see these changes.";
+            
+            // Reload cards from backend
+            await loadResources();
+            searchLinks();
+
+            setTimeout(() => {
+                closeResourceEditor();
+                saveButton.disabled = false;
+                saveButton.textContent = "Save changes";
+            }, 1000);
+        } else {
+            editorStatus.style.color = "#c0392b";
+            editorStatus.textContent = data.error || "Server rejected update.";
+            saveButton.disabled = false;
+            saveButton.textContent = "Save changes";
+        }
+    } catch (err) {
+        editorStatus.style.color = "#c0392b";
+        editorStatus.textContent = "Error: Could not reach the server.";
+        saveButton.disabled = false;
+        saveButton.textContent = "Save changes";
     }
-
-    // Keep the edited card visible and refresh search results if a search is active.
-    searchLinks();
 });
-</script>
 
+function escapeHtml(str) {
+    return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+// Initial load on page startup
+loadResources();
+</script>
 
 </body>
 </html>
