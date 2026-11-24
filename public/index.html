@@ -313,45 +313,47 @@ body {
 
 .card-top-controls {
     position: absolute;
-    top: 9px;
-    right: 10px;
+    top: 12px;
+    right: 14px;
     z-index: 2;
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
 }
 
-/* Green category badge in top right corner */
+/* Crisp green category badge button */
 .resource-badge-btn {
-    border: 1px solid rgba(20, 92, 67, 0.28);
-    border-radius: 7px;
-    padding: 4px 9px;
-    background: #e4f2eb;
-    color: #145c43;
-    font: 600 10px "Segoe UI", Arial, sans-serif;
-    letter-spacing: 0.4px;
+    border: 1.5px solid #2d7a5b;
+    border-radius: 8px;
+    padding: 4px 10px;
+    background: #eef7f2;
+    color: #114c37;
+    font: 700 11px "Segoe UI", Arial, sans-serif;
+    letter-spacing: 0.3px;
     display: inline-flex;
     align-items: center;
+    box-shadow: 0 1px 3px rgba(16, 61, 50, 0.08);
     user-select: none;
 }
 
+/* Crisp edit button */
 .resource-edit-button {
-    border: 1px solid #d6e3db;
-    border-radius: 7px;
-    padding: 4px 8px;
-    background: rgba(255,255,255,.96);
+    border: 1.5px solid #8ba898;
+    border-radius: 8px;
+    padding: 4px 11px;
+    background: #ffffff;
     color: #145c43;
-    font: 600 10px "Segoe UI", Arial, sans-serif;
+    font: 700 11px "Segoe UI", Arial, sans-serif;
     cursor: pointer;
-    opacity: .88;
-    transition: 0.2s;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+    transition: all 0.2s ease;
 }
 .resource-edit-button:hover,
 .resource-edit-button:focus {
-    opacity: 1;
     background: #145c43;
-    color: #fff;
+    color: #ffffff;
     border-color: #145c43;
+    box-shadow: 0 2px 6px rgba(20, 92, 67, 0.25);
 }
 
 .resource-editor-backdrop {
