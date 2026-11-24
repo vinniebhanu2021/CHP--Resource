@@ -1,0 +1,21 @@
+{
+  "name": "chp-resource-hub",
+  "version": "1.0.0",
+  "description": "CHP Resource & Quick Links Hub with API backend and resource management",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": [
+    "chp",
+    "resource-hub",
+    "health-prevention"
+  ],
+  "author": "vinniebhanu2021",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2"
+  }
+}

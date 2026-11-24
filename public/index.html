@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CHP | Resource Hub</title>
+
+<style>
+:root {
+    --green: #145c43;
+    --deep: #103d32;
+    --mint: #dcefe5;
+    --gold: #d9b875;
+    --text: #24372f;
+    --card-bg: rgba(255, 255, 255, 0.94);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: "Segoe UI", Arial, sans-serif;
+    color: var(--text);
+    background:
+        radial-gradient(circle at 10% 15%, #d7eadc 0, transparent 30%),
+        radial-gradient(circle at 90% 85%, #c8dfd5 0, transparent 30%),
+        linear-gradient(135deg, #edf4ef, #e3eee8 50%, #f5f3eb);
+    padding: 45px 20px;
+}
+
+/* Main container */
+.container {
+    max-width: 1150px;
+    margin: auto;
+}
+
+/* Header */
+.header {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(120deg, #103d32, #17664b, #26815e);
+    color: white;
+    padding: 48px 45px;
+    border-radius: 22px;
+    box-shadow: 0 15px 40px rgba(16, 61, 50, 0.20);
+}
+
+.header::before {
+    content: "";
+    position: absolute;
+    width: 330px;
+    height: 330px;
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 50%;
+    right: -65px;
+    top: -175px;
+    box-shadow:
+        0 0 0 35px rgba(255,255,255,.035),
+        0 0 0 75px rgba(255,255,255,.025);
+}
+
+.header-content {
+    position: relative;
+    z-index: 1;
+}
+
+.tag {
+    display: inline-block;
+    color: #f0d99f;
+    border: 1px solid rgba(240,217,159,.5);
+    padding: 7px 15px;
+    border-radius: 30px;
+    font-size: 11px;
+    letter-spacing: 2px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.header h1 {
+    font-size: clamp(28px, 4vw, 42px);
+    margin: 0 0 12px;
+    letter-spacing: .3px;
+    font-weight: 700;
+}
+
+.header p {
+    color: #d7e9df;
+    font-size: 15px;
+    line-height: 1.7;
+    max-width: 620px;
+    margin: 0;
+}
+
+.header-line {
+    width: 65px;
+    height: 4px;
+    background: var(--gold);
+    border-radius: 5px;
+    margin: 23px 0 0;
+}
+
+/* Section heading */
+.section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin: 38px 2px 20px;
+}
+
+.section-heading h2 {
+    font-size: 21px;
+    color: var(--deep);
+    margin: 0;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.btn-add {
+    background: var(--green);
+    color: white;
+    border: none;
+    padding: 9px 18px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.btn-add:hover {
+    background: #0d4633;
+    transform: translateY(-1px);
+}
+
+.section-heading span {
+    font-size: 12px;
+    color: #718078;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+
+/* Controls: Search & Category Chips */
+.controls-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 24px;
+}
+
+.search-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.search-wrapper input {
+    width: 100%;
+    padding: 15px 20px;
+    border: 1px solid #d6e3db;
+    border-radius: 12px;
+    background: rgba(255,255,255,.9);
+    outline: none;
+    font-size: 14px;
+    box-shadow: 0 4px 15px rgba(30,70,50,.04);
+    transition: .3s;
+}
+
+.search-wrapper input:focus {
+    border-color: #398365;
+    box-shadow: 0 0 0 3px rgba(57,131,101,.12);
+}
+
+.category-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.category-chip {
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid #d0dfd6;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    color: var(--text);
+    cursor: pointer;
+    transition: 0.2s;
+    user-select: none;
+}
+
+.category-chip.active, .category-chip:hover {
+    background: var(--green);
+    color: white;
+    border-color: var(--green);
+}
+
+/* Resource cards */
+.link-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 19px;
+}
+
+.link-card {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: var(--card-bg);
+    padding: 23px 19px;
+    border: 1px solid rgba(205,221,211,.8);
+    border-radius: 15px;
+    text-decoration: none;
+    color: var(--text);
+    box-shadow: 0 5px 17px rgba(28,70,48,.055);
+    transition: transform .25s ease, box-shadow .25s ease,
+                border-color .25s ease;
+    min-height: 108px;
+}
+
+.link-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 13px 27px rgba(28,70,48,.12);
+    border-color: #8bbca1;
+}
+
+.icon-box {
+    width: 51px;
+    height: 51px;
+    min-width: 51px;
+    border-radius: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 23px;
+    background: #e7f2eb;
+}
+
+.link-card:nth-child(3n+2) .icon-box {
+    background: #f3eee1;
+}
+
+.link-card:nth-child(3n+3) .icon-box {
+    background: #e9eef5;
+}
+
+.card-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.card-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+.card-number {
+    color: #8a9b90;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    font-weight: 700;
+}
+
+.card-tag {
+    font-size: 9px;
+    background: #e2ede7;
+    color: #17664b;
+    padding: 2px 7px;
+    border-radius: 10px;
+    font-weight: 600;
+}
+
+.card-title {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.4;
+    color: #244a39;
+    word-break: break-word;
+}
+
+.card-subtitle {
+    color: #87948c;
+    font-size: 11px;
+    margin-top: 5px;
+    line-height: 1.4;
+}
+
+.arrow {
+    font-size: 20px;
+    color: #9ab3a4;
+    transition: .25s;
+}
+
+.link-card:hover .arrow {
+    color: var(--green);
+    transform: translateX(4px);
+}
+
+/* Modal for Adding Resources */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(16, 61, 50, 0.45);
+    backdrop-filter: blur(4px);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.modal-card {
+    background: white;
+    border-radius: 18px;
+    max-width: 480px;
+    width: 100%;
+    padding: 30px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    position: relative;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.modal-header h3 {
+    margin: 0;
+    color: var(--deep);
+    font-size: 18px;
+}
+
+.btn-close {
+    background: none;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+    color: #718078;
+}
+
+.form-group {
+    margin-bottom: 14px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #40554b;
+}
+
+.form-group input, .form-group select {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid #c9d8cf;
+    border-radius: 8px;
+    font-size: 13px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.form-group input:focus, .form-group select:focus {
+    border-color: var(--green);
+}
+
+.btn-submit {
+    width: 100%;
+    background: var(--green);
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background 0.2s;
+}
+
+.btn-submit:hover {
+    background: #0d4633;
+}
+
+/* Footer */
+.footer {
+    margin-top: 45px;
+    text-align: center;
+    border-top: 1px solid rgba(100,130,110,.2);
+    padding: 22px 10px 0;
+    color: #7c8c81;
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+.footer strong {
+    color: #38694f;
+    letter-spacing: 1px;
+}
+
+.no-results {
+    display: none;
+    text-align: center;
+    color: #718078;
+    padding: 35px;
+    background: white;
+    border-radius: 12px;
+    grid-column: 1 / -1;
+}
+
+@media(max-width: 850px) {
+    .link-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media(max-width: 550px) {
+    body {
+        padding: 20px 13px;
+    }
+
+    .header {
+        padding: 35px 25px;
+    }
+
+    .link-container {
+        grid-template-columns: 1fr;
+    }
+
+    .section-heading {
+        margin-top: 28px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- HEADER -->
+    <header class="header">
+        <div class="header-content">
+            <div class="tag">COMMUNITY HEALTH & PREVENTION</div>
+
+            <h1>Resource & Quick Links Hub</h1>
+
+            <p>
+                Your central access point for essential tools, inventory,
+                ordering resources, team information, and operational
+                documents. Everything you need, all in one place.
+            </p>
+
+            <div class="header-line"></div>
+        </div>
+    </header>
+
+    <!-- RESOURCES HEADING -->
+    <div class="section-heading">
+        <div>
+            <h2>Essential Resources</h2>
+            <span id="resourceCountText">LOADING RESOURCES...</span>
+        </div>
+        <div class="header-actions">
+            <button class="btn-add" onclick="openAddModal()">＋ Add Resource</button>
+        </div>
+    </div>
+
+    <!-- SEARCH & FILTERS -->
+    <div class="controls-wrapper">
+        <div class="search-wrapper">
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="🔍  Search resources by title, description, or category..."
+                onkeyup="filterLinks()"
+            >
+        </div>
+        <div class="category-chips" id="categoryChips">
+            <button class="category-chip active" onclick="selectCategory('All')">All</button>
+        </div>
+    </div>
+
+    <!-- LINK CARDS CONTAINER -->
+    <div class="link-container" id="linkContainer">
+        <!-- Loaded dynamically from API -->
+    </div>
+
+    <div class="no-results" id="noResults">
+        No matching resources found. Try another search.
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <strong>COMMUNITY HEALTH & PREVENTION</strong>
+        <br>
+        Central Resource Hub | All essential links in one place
+        <br>
+        <span>Designed for easy access and everyday use.</span>
+    </footer>
+
+</div>
+
+<!-- ADD RESOURCE MODAL -->
+<div class="modal-overlay" id="addModal">
+    <div class="modal-card">
+        <div class="modal-header">
+            <h3>Add New Resource</h3>
+            <button class="btn-close" onclick="closeAddModal()">&times;</button>
+        </div>
+        <form id="addResourceForm" onsubmit="handleCreateResource(event)">
+            <div class="form-group">
+                <label>Resource Title *</label>
+                <input type="text" id="resTitle" required placeholder="e.g. Training Portal">
+            </div>
+            <div class="form-group">
+                <label>Subtitle / Description</label>
+                <input type="text" id="resSubtitle" placeholder="e.g. Team documentation & onboarding">
+            </div>
+            <div class="form-group">
+                <label>Direct URL *</label>
+                <input type="url" id="resUrl" required placeholder="https://...">
+            </div>
+            <div class="form-group">
+                <label>Category</label>
+                <input type="text" id="resCategory" placeholder="e.g. Operations, Education, Management">
+            </div>
+            <div class="form-group">
+                <label>Emoji Icon</label>
+                <input type="text" id="resIcon" maxlength="4" value="📌" placeholder="📌">
+            </div>
+            <button type="submit" class="btn-submit">Add Resource</button>
+        </form>
+    </div>
+</div>
+
+<script>
+let allResources = [];
+let activeCategory = 'All';
+
+async function fetchResources() {
+    try {
+        const res = await fetch('/api/resources');
+        const data = await res.json();
+        if (data.success) {
+            allResources = data.data;
+            renderCategories();
+            renderResources(allResources);
+        }
+    } catch (err) {
+        console.error('Failed to load resources:', err);
+    }
+}
+
+function renderCategories() {
+    const categories = ['All', ...new Set(allResources.map(r => r.category || 'General'))];
+    const container = document.getElementById('categoryChips');
+    container.innerHTML = categories.map(cat => `
+        <button class="category-chip ${cat === activeCategory ? 'active' : ''}" onclick="selectCategory('${cat}')">
+            ${cat}
+        </button>
+    `).join('');
+}
+
+function selectCategory(cat) {
+    activeCategory = cat;
+    renderCategories();
+    filterLinks();
+}
+
+function renderResources(resources) {
+    const container = document.getElementById("linkContainer");
+    const countText = document.getElementById("resourceCountText");
+    const noResults = document.getElementById("noResults");
+
+    countText.innerText = `${resources.length} ACTIVE RESOURCE${resources.length === 1 ? '' : 'S'}`;
+
+    if (resources.length === 0) {
+        container.innerHTML = '';
+        noResults.style.display = 'block';
+        return;
+    }
+
+    noResults.style.display = 'none';
+    container.innerHTML = resources.map((item, index) => {
+        const displayNumber = item.id < 10 ? `0${item.id}` : `${item.id}`;
+        return `
+            <a class="link-card" href="${item.url}" target="_blank" rel="noopener noreferrer">
+                <div class="icon-box">${item.icon || '🔗'}</div>
+                <div class="card-info">
+                    <div class="card-meta">
+                        <div class="card-number">RESOURCE ${displayNumber}</div>
+                        ${item.category ? `<div class="card-tag">${item.category}</div>` : ''}
+                    </div>
+                    <div class="card-title">${escapeHtml(item.title)}</div>
+                    <div class="card-subtitle">${escapeHtml(item.subtitle || '')}</div>
+                </div>
+                <div class="arrow">›</div>
+            </a>
+        `;
+    }).join('');
+}
+
+function filterLinks() {
+    const search = document.getElementById("searchInput").value.toLowerCase();
+    const filtered = allResources.filter(item => {
+        const matchCat = activeCategory === 'All' || (item.category && item.category.toLowerCase() === activeCategory.toLowerCase());
+        const matchSearch = !search || 
+            (item.title && item.title.toLowerCase().includes(search)) ||
+            (item.subtitle && item.subtitle.toLowerCase().includes(search)) ||
+            (item.category && item.category.toLowerCase().includes(search));
+        return matchCat && matchSearch;
+    });
+
+    renderResources(filtered);
+}
+
+function openAddModal() {
+    document.getElementById('addModal').style.display = 'flex';
+}
+
+function closeAddModal() {
+    document.getElementById('addModal').style.display = 'none';
+    document.getElementById('addResourceForm').reset();
+    document.getElementById('resIcon').value = '📌';
+}
+
+async function handleCreateResource(e) {
+    e.preventDefault();
+    const title = document.getElementById('resTitle').value;
+    const subtitle = document.getElementById('resSubtitle').value;
+    const url = document.getElementById('resUrl').value;
+    const category = document.getElementById('resCategory').value || 'General';
+    const icon = document.getElementById('resIcon').value || '📌';
+
+    try {
+        const res = await fetch('/api/resources', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ title, subtitle, url, category, icon })
+        });
+        const result = await res.json();
+        if (result.success) {
+            closeAddModal();
+            fetchResources();
+        } else {
+            alert('Error adding resource: ' + result.error);
+        }
+    } catch (err) {
+        alert('Server request failed.');
+    }
+}
+
+function escapeHtml(str) {
+    return str
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+// Initial load
+fetchResources();
+</script>
+
+</body>
+</html>
