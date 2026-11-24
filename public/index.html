@@ -555,17 +555,100 @@ const editorForm = document.getElementById("resourceEditorForm");
 const editorStatus = document.getElementById("resourceEditorStatus");
 const saveButton = document.getElementById("saveButton");
 
+// Default fallback resources in case backend is loading or on static hosting
+const DEFAULT_RESOURCES = [
+  {
+    id: 1,
+    title: "Inventory Tracker",
+    subtitle: "Inventory & stock management",
+    icon: "📊",
+    category: "Management",
+    url: "https://studentbridgew.sharepoint.com/:x:/s/CommunityHealthPrevention/IQA6cERn_T9xTaCZkqyyP52PAdrAQMnfyZ_MexRJVPSOHD0?email=SGARCIACHINGO%40student.bridgew.edu&e=Ip2vjP&isSPOFile=1&ovuser=48ec3bf8-d165-4eab-bbee-f8d5307f46e1%2CUJANGAM%40bridgew.edu&wdExp=TEAMS-TREATMENT&web=1&clickparams=eyJBcHBOYW1lIjoiVGVhbXMtV2ViIiwiQXBwVmVyc2lvbiI6IjE0MTUvMjYxMDAyMTIwMTgifQ%3D%3D"
+  },
+  {
+    id: 2,
+    title: "Literature Folder",
+    subtitle: "Educational materials & literature",
+    icon: "📚",
+    category: "Education",
+    url: "https://drive.google.com/drive/folders/1IE618Otm6s4WpN8gnMIKKbkp7pvTE14i"
+  },
+  {
+    id: 3,
+    title: "IQ Tech Portal",
+    subtitle: "Machine management portal",
+    icon: "⚙️",
+    category: "Operations",
+    url: "https://iqtechportal.com/Machine"
+  },
+  {
+    id: 4,
+    title: "Avery Projects",
+    subtitle: "Labels & design projects",
+    icon: "🏷️",
+    category: "Design",
+    url: "https://www.avery.com/account/projects"
+  },
+  {
+    id: 5,
+    title: "CHP Order Form",
+    subtitle: "Submit supply orders",
+    icon: "📝",
+    category: "Operations",
+    url: "https://form.jotform.com/260143993326156"
+  },
+  {
+    id: 6,
+    title: "CHP Platforms Credentials",
+    subtitle: "Platform access information",
+    icon: "🔐",
+    category: "Security",
+    url: "https://studentbridgew.sharepoint.com/:w:/r/sites/CommunityHealthPrevention/_layouts/15/Doc.aspx?action=edit&sourcedoc=%7B3c70191b-8725-4df5-a61a-d01f5ba385ca%7D&wdExp=TEAMS-TREATMENT&web=1"
+  },
+  {
+    id: 7,
+    title: "About CHP",
+    subtitle: "CHP information & overview",
+    icon: "🏛️",
+    category: "General",
+    url: "https://studentbridgew.sharepoint.com/sites/HealthPromotion"
+  },
+  {
+    id: 8,
+    title: "SVAS Center App",
+    subtitle: "App to Order Vending Machines Supplies",
+    icon: "📅",
+    category: "Operations",
+    url: "https://www.jotform.com/app/252333785202150"
+  },
+  {
+    id: 9,
+    title: "Student Guides & Attachments",
+    subtitle: "Training & onboarding documents",
+    icon: "📁",
+    category: "Education",
+    url: "https://studentbridgew.sharepoint.com/:f:/r/sites/CommunityHealthPrevention/Shared%20Documents/CHP%20Resources%20and%20Initiatives/CHP%20New%20Student%20Employee%20Training?d=wc78bbb515ac64b6a85543828f055afa1&csf=1&web=1&e=JiKuVs"
+  }
+];
+
 // Fetch live resources from the server
 async function loadResources() {
     try {
         const response = await fetch('/api/resources');
         const result = await response.json();
-        if (result.success && Array.isArray(result.data)) {
+        if (result.success && Array.isArray(result.data) && result.data.length > 0) {
             currentResources = result.data;
             renderCards(currentResources);
+            return;
         }
     } catch (err) {
-        console.error("Could not fetch resources from backend:", err);
+        console.warn("Could not fetch resources from /api/resources, using default dataset:", err);
+    }
+
+    // Fallback if API is unreachable
+    if (currentResources.length === 0) {
+        currentResources = DEFAULT_RESOURCES;
+        renderCards(currentResources);
     }
 }
 
