@@ -203,72 +203,18 @@ body {
     flex-direction: column;
 }
 
-.card-meta {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin-bottom: 7px;
-    min-height: 24px;
-}
-
 .card-number {
     color: #8a9b90;
     font-size: 10px;
     letter-spacing: 1.5px;
     font-weight: 700;
-    white-space: nowrap;
-}
-
-.card-top-controls {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 5px;
-    margin-left: auto;
-}
-
-/* Clean green category badge button */
-.resource-badge-btn {
-    border: 1.5px solid #2d7a5b;
-    border-radius: 6px;
-    padding: 2px 7px;
-    background: #eef7f2;
-    color: #114c37;
-    font: 700 10px "Segoe UI", Arial, sans-serif;
-    letter-spacing: 0.3px;
-    display: inline-flex;
-    align-items: center;
-    white-space: nowrap;
-    user-select: none;
-    line-height: 1.3;
-}
-
-/* Clean edit button */
-.resource-edit-button {
-    border: 1.5px solid #8ba898;
-    border-radius: 6px;
-    padding: 2px 8px;
-    background: #ffffff;
-    color: #145c43;
-    font: 700 10px "Segoe UI", Arial, sans-serif;
-    cursor: pointer;
-    white-space: nowrap;
-    line-height: 1.3;
-    transition: all 0.2s ease;
-}
-.resource-edit-button:hover,
-.resource-edit-button:focus {
-    background: #145c43;
-    color: #ffffff;
-    border-color: #145c43;
+    margin-bottom: 5px;
 }
 
 .card-title {
-    font-size: 14px;
+    font-size: 14.5px;
     font-weight: 700;
-    line-height: 1.4;
+    line-height: 1.35;
     color: #244a39;
     word-break: break-word;
 }
@@ -279,6 +225,47 @@ body {
     margin-top: 4px;
     line-height: 1.4;
     word-break: break-word;
+}
+
+.card-footer-controls {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-top: 10px;
+}
+
+/* Crisp green category badge */
+.resource-badge-btn {
+    border: 1.5px solid #2d7a5b;
+    border-radius: 6px;
+    padding: 2.5px 8px;
+    background: #eef7f2;
+    color: #114c37;
+    font: 700 10px "Segoe UI", Arial, sans-serif;
+    letter-spacing: 0.3px;
+    display: inline-flex;
+    align-items: center;
+    user-select: none;
+    line-height: 1.3;
+}
+
+/* Crisp edit button */
+.resource-edit-button {
+    border: 1.5px solid #8ba898;
+    border-radius: 6px;
+    padding: 2.5px 9px;
+    background: #ffffff;
+    color: #145c43;
+    font: 700 10px "Segoe UI", Arial, sans-serif;
+    cursor: pointer;
+    line-height: 1.3;
+    transition: all 0.2s ease;
+}
+.resource-edit-button:hover,
+.resource-edit-button:focus {
+    background: #145c43;
+    color: #ffffff;
+    border-color: #145c43;
 }
 
 .arrow {
@@ -596,15 +583,13 @@ function renderCards(resources) {
                 <a class="link-card" href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer">
                     <div class="icon-box">${item.icon || '🔗'}</div>
                     <div class="card-info">
-                        <div class="card-meta">
-                            <div class="card-number">RESOURCE ${displayNumber}</div>
-                            <div class="card-top-controls">
-                                ${categoryTag ? `<span class="resource-badge-btn">${categoryTag}</span>` : ''}
-                                <button type="button" class="resource-edit-button" onclick="event.preventDefault(); event.stopPropagation(); openEditor(${item.id})" aria-label="Edit ${escapeHtml(item.title)}" title="Edit this resource">Edit</button>
-                            </div>
-                        </div>
+                        <div class="card-number">RESOURCE ${displayNumber}</div>
                         <div class="card-title">${escapeHtml(item.title)}</div>
                         <div class="card-subtitle">${escapeHtml(item.subtitle || '')}</div>
+                        <div class="card-footer-controls">
+                            ${categoryTag ? `<span class="resource-badge-btn">${categoryTag}</span>` : ''}
+                            <button type="button" class="resource-edit-button" onclick="event.preventDefault(); event.stopPropagation(); openEditor(${item.id})" aria-label="Edit ${escapeHtml(item.title)}" title="Edit this resource">Edit</button>
+                        </div>
                     </div>
                     <div class="arrow">›</div>
                 </a>
