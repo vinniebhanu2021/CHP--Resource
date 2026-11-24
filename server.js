@@ -69,7 +69,7 @@ app.get('/api/resources', (req, res) => {
 // PUT /api/resources/:id - Update resource globally & publicly
 app.put('/api/resources/:id', (req, res) => {
   const resourceId = parseInt(req.params.id, 10);
-  const { title, subtitle, url } = req.body;
+  const { title, subtitle, url, category } = req.body;
 
   if (!title || !url) {
     return res.status(400).json({ success: false, error: 'Title and URL are required' });
@@ -86,6 +86,9 @@ app.put('/api/resources/:id', (req, res) => {
   resources[index].title = title.trim();
   resources[index].subtitle = subtitle ? subtitle.trim() : '';
   resources[index].url = url.trim();
+  if (category) {
+    resources[index].category = category.trim();
+  }
 
   if (!saveResources(resources)) {
     return res.status(500).json({ success: false, error: 'Failed to update resource file' });

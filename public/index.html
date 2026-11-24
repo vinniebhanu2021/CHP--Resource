@@ -201,12 +201,31 @@ body {
     min-width: 0;
 }
 
+.card-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+}
+
 .card-number {
     color: #8a9b90;
     font-size: 10px;
     letter-spacing: 1.5px;
     font-weight: 700;
-    margin-bottom: 6px;
+}
+
+/* Green category tag badge */
+.card-tag {
+    font-size: 10px;
+    background: #e2ede7;
+    color: #17664b;
+    border: 1px solid rgba(20, 92, 67, 0.25);
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    display: inline-block;
 }
 
 .card-title {
@@ -283,7 +302,7 @@ body {
     }
 }
 
-/* Per-resource editing controls */
+/* Card wrapper & header controls */
 .resource-card-wrap {
     position: relative;
     min-width: 0;
@@ -291,11 +310,32 @@ body {
 .resource-card-wrap .link-card {
     height: 100%;
 }
-.resource-edit-button {
+
+.card-top-controls {
     position: absolute;
     top: 9px;
     right: 10px;
     z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Green category badge in top right corner */
+.resource-badge-btn {
+    border: 1px solid rgba(20, 92, 67, 0.28);
+    border-radius: 7px;
+    padding: 4px 9px;
+    background: #e4f2eb;
+    color: #145c43;
+    font: 600 10px "Segoe UI", Arial, sans-serif;
+    letter-spacing: 0.4px;
+    display: inline-flex;
+    align-items: center;
+    user-select: none;
+}
+
+.resource-edit-button {
     border: 1px solid #d6e3db;
     border-radius: 7px;
     padding: 4px 8px;
@@ -303,14 +343,17 @@ body {
     color: #145c43;
     font: 600 10px "Segoe UI", Arial, sans-serif;
     cursor: pointer;
-    opacity: .82;
+    opacity: .88;
+    transition: 0.2s;
 }
 .resource-edit-button:hover,
 .resource-edit-button:focus {
     opacity: 1;
-    background: #e7f2eb;
-    outline: 2px solid rgba(57,131,101,.18);
+    background: #145c43;
+    color: #fff;
+    border-color: #145c43;
 }
+
 .resource-editor-backdrop {
     position: fixed;
     inset: 0;
@@ -390,7 +433,7 @@ body {
     line-height: 1.5;
 }
 @media(max-width:550px) {
-    .resource-edit-button { top: 7px; right: 7px; }
+    .card-top-controls { top: 7px; right: 7px; }
 }
 </style>
 </head>
@@ -469,6 +512,9 @@ body {
             <label for="resourceUrlInput">Destination link</label>
             <input id="resourceUrlInput" type="url" placeholder="https://..." required>
 
+            <label for="resourceCategoryInput">Category tag</label>
+            <input id="resourceCategoryInput" type="text" maxlength="30" placeholder="e.g. Management, Education, Operations">
+
             <div class="resource-editor-actions">
                 <button type="submit" class="resource-save" id="saveButton">Save changes</button>
                 <button type="button" class="resource-cancel" id="cancelResourceEdit">Cancel</button>
@@ -515,18 +561,24 @@ function renderCards(resources) {
     noResults.style.display = "none";
     container.innerHTML = resources.map((item, index) => {
         const displayNumber = item.id < 10 ? `0${item.id}` : `${item.id}`;
+        const categoryTag = item.category ? escapeHtml(item.category) : '';
         return `
             <div class="resource-card-wrap" data-id="${item.id}">
                 <a class="link-card" href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer">
                     <div class="icon-box">${item.icon || '🔗'}</div>
                     <div class="card-info">
-                        <div class="card-number">RESOURCE ${displayNumber}</div>
+                        <div class="card-meta">
+                            <div class="card-number">RESOURCE ${displayNumber}</div>
+                        </div>
                         <div class="card-title">${escapeHtml(item.title)}</div>
                         <div class="card-subtitle">${escapeHtml(item.subtitle || '')}</div>
                     </div>
                     <div class="arrow">›</div>
                 </a>
-                <button type="button" class="resource-edit-button" onclick="openEditor(${item.id})" aria-label="Edit ${escapeHtml(item.title)}" title="Edit this resource">Edit</button>
+                <div class="card-top-controls">
+                    ${categoryTag ? `<span class="resource-badge-btn">${categoryTag}</span>` : ''}
+                    <button type="button" class="resource-edit-button" onclick="openEditor(${item.id})" aria-label="Edit ${escapeHtml(item.title)}" title="Edit this resource">Edit</button>
+                </div>
             </div>
         `;
     }).join("");
@@ -557,6 +609,7 @@ function openEditor(id) {
     document.getElementById("resourceTitleInput").value = item.title;
     document.getElementById("resourceSubtitleInput").value = item.subtitle || "";
     document.getElementById("resourceUrlInput").value = item.url;
+    document.getElementById("resourceCategoryInput").value = item.category || "";
 
     editorStatus.textContent = "";
     editorStatus.style.color = "#38694f";
@@ -582,6 +635,7 @@ editorForm.addEventListener("submit", async event => {
     const title = document.getElementById("resourceTitleInput").value.trim();
     const subtitle = document.getElementById("resourceSubtitleInput").value.trim();
     const url = document.getElementById("resourceUrlInput").value.trim();
+    const category = document.getElementById("resourceCategoryInput").value.trim() || "General";
 
     try {
         const parsedUrl = new URL(url);
@@ -605,7 +659,7 @@ editorForm.addEventListener("submit", async event => {
         const res = await fetch(`/api/resources/${editingResourceId}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ title, subtitle, url })
+            body: JSON.stringify({ title, subtitle, url, category })
         });
 
         const data = await res.json();
@@ -621,7 +675,7 @@ editorForm.addEventListener("submit", async event => {
                 closeResourceEditor();
                 saveButton.disabled = false;
                 saveButton.textContent = "Save changes";
-            }, 1000);
+            }, 800);
         } else {
             editorStatus.style.color = "#c0392b";
             editorStatus.textContent = data.error || "Server rejected update.";
