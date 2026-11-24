@@ -2,10 +2,30 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const fs = require('fs');
+const os = require('os');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const DATA_FILE = path.join(__dirname, 'data', 'resources.json');
+
+// On Vercel, the root directory is read-only. We copy the seed data to /tmp/ if needed.
+const LOCAL_DATA_FILE = path.join(__dirname, 'data', 'resources.json');
+const RUNTIME_DATA_FILE = process.env.VERCEL
+  ? path.join(os.tmpdir(), 'resources.json')
+  : LOCAL_DATA_FILE;
+
+// Helper to get active file path and ensure initial data exists
+function initDataFile() {
+  try {
+    if (process.env.VERCEL && !fs.existsSync(RUNTIME_DATA_FILE)) {
+      if (fs.existsSync(LOCAL_DATA_FILE)) {
+        fs.copyFileSync(LOCAL_DATA_FILE, RUNTIME_DATA_FILE);
+      }
+    }
+  } catch (err) {
+    console.warn('Could not initialize runtime data file:', err);
+  }
+}
+initDataFile();
 
 // Middleware
 app.use(cors());
@@ -15,11 +35,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Helper to read resources
 function getResources() {
   try {
-    if (!fs.existsSync(DATA_FILE)) {
-      return [];
+    const targetFile = fs.existsSync(RUNTIME_DATA_FILE) ? RUNTIME_DATA_FILE : LOCAL_DATA_FILE;
+    if (fs.existsSync(targetFile)) {
+      const data = fs.readFileSync(targetFile, 'utf8');
+      return JSON.parse(data);
     }
-    const data = fs.readFileSync(DATA_FILE, 'utf8');
-    return JSON.parse(data);
+    return [];
   } catch (err) {
     console.error('Error reading resources file:', err);
     return [];
@@ -29,7 +50,15 @@ function getResources() {
 // Helper to save resources
 function saveResources(resources) {
   try {
-    fs.writeFileSync(DATA_FILE, JSON.stringify(resources, null, 2), 'utf8');
+    // Attempt saving to runtime target (on Vercel, this is /tmp/resources.json)
+    fs.writeFileSync(RUNTIME_DATA_FILE, JSON.stringify(resources, null, 2), 'utf8');
+    
+    // Also sync to local data directory if writable
+    if (!process.env.VERCEL && RUNTIME_DATA_FILE !== LOCAL_DATA_FILE) {
+      try {
+        fs.writeFileSync(LOCAL_DATA_FILE, JSON.stringify(resources, null, 2), 'utf8');
+      } catch (_) {}
+    }
     return true;
   } catch (err) {
     console.error('Error writing resources file:', err);
