@@ -12,7 +12,6 @@
     --mint: #dcefe5;
     --gold: #d9b875;
     --text: #24372f;
-    --card-bg: rgba(255, 255, 255, 0.94);
 }
 
 * {
@@ -118,32 +117,6 @@ body {
     margin: 0;
 }
 
-.header-actions {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.btn-add {
-    background: var(--green);
-    color: white;
-    border: none;
-    padding: 9px 18px;
-    border-radius: 20px;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: 0.2s ease;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.btn-add:hover {
-    background: #0d4633;
-    transform: translateY(-1px);
-}
-
 .section-heading span {
     font-size: 12px;
     color: #718078;
@@ -151,17 +124,9 @@ body {
     font-weight: 600;
 }
 
-/* Controls: Search & Category Chips */
-.controls-wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    margin-bottom: 24px;
-}
-
+/* Search bar */
 .search-wrapper {
-    position: relative;
-    width: 100%;
+    margin-bottom: 24px;
 }
 
 .search-wrapper input {
@@ -169,7 +134,7 @@ body {
     padding: 15px 20px;
     border: 1px solid #d6e3db;
     border-radius: 12px;
-    background: rgba(255,255,255,.9);
+    background: rgba(255,255,255,.85);
     outline: none;
     font-size: 14px;
     box-shadow: 0 4px 15px rgba(30,70,50,.04);
@@ -179,30 +144,6 @@ body {
 .search-wrapper input:focus {
     border-color: #398365;
     box-shadow: 0 0 0 3px rgba(57,131,101,.12);
-}
-
-.category-chips {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-}
-
-.category-chip {
-    background: rgba(255, 255, 255, 0.8);
-    border: 1px solid #d0dfd6;
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 12px;
-    color: var(--text);
-    cursor: pointer;
-    transition: 0.2s;
-    user-select: none;
-}
-
-.category-chip.active, .category-chip:hover {
-    background: var(--green);
-    color: white;
-    border-color: var(--green);
 }
 
 /* Resource cards */
@@ -217,7 +158,7 @@ body {
     display: flex;
     align-items: center;
     gap: 16px;
-    background: var(--card-bg);
+    background: rgba(255,255,255,.92);
     padding: 23px 19px;
     border: 1px solid rgba(205,221,211,.8);
     border-radius: 15px;
@@ -247,11 +188,11 @@ body {
     background: #e7f2eb;
 }
 
-.link-card:nth-child(3n+2) .icon-box {
+.resource-card-wrap:nth-child(3n+2) .icon-box {
     background: #f3eee1;
 }
 
-.link-card:nth-child(3n+3) .icon-box {
+.resource-card-wrap:nth-child(3n+3) .icon-box {
     background: #e9eef5;
 }
 
@@ -260,27 +201,12 @@ body {
     min-width: 0;
 }
 
-.card-meta {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 6px;
-}
-
 .card-number {
     color: #8a9b90;
     font-size: 10px;
     letter-spacing: 1.5px;
     font-weight: 700;
-}
-
-.card-tag {
-    font-size: 9px;
-    background: #e2ede7;
-    color: #17664b;
-    padding: 2px 7px;
-    border-radius: 10px;
-    font-weight: 600;
+    margin-bottom: 6px;
 }
 
 .card-title {
@@ -288,14 +214,12 @@ body {
     font-weight: 700;
     line-height: 1.4;
     color: #244a39;
-    word-break: break-word;
 }
 
 .card-subtitle {
     color: #87948c;
     font-size: 11px;
     margin-top: 5px;
-    line-height: 1.4;
 }
 
 .arrow {
@@ -307,97 +231,6 @@ body {
 .link-card:hover .arrow {
     color: var(--green);
     transform: translateX(4px);
-}
-
-/* Modal for Adding Resources */
-.modal-overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(16, 61, 50, 0.45);
-    backdrop-filter: blur(4px);
-    z-index: 100;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-}
-
-.modal-card {
-    background: white;
-    border-radius: 18px;
-    max-width: 480px;
-    width: 100%;
-    padding: 30px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-    position: relative;
-}
-
-.modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.modal-header h3 {
-    margin: 0;
-    color: var(--deep);
-    font-size: 18px;
-}
-
-.btn-close {
-    background: none;
-    border: none;
-    font-size: 22px;
-    cursor: pointer;
-    color: #718078;
-}
-
-.form-group {
-    margin-bottom: 14px;
-}
-
-.form-group label {
-    display: block;
-    font-size: 12px;
-    font-weight: 600;
-    margin-bottom: 5px;
-    color: #40554b;
-}
-
-.form-group input, .form-group select {
-    width: 100%;
-    padding: 10px 14px;
-    border: 1px solid #c9d8cf;
-    border-radius: 8px;
-    font-size: 13px;
-    outline: none;
-    box-sizing: border-box;
-}
-
-.form-group input:focus, .form-group select:focus {
-    border-color: var(--green);
-}
-
-.btn-submit {
-    width: 100%;
-    background: var(--green);
-    color: white;
-    border: none;
-    padding: 12px;
-    border-radius: 10px;
-    font-weight: 600;
-    font-size: 14px;
-    cursor: pointer;
-    margin-top: 10px;
-    transition: background 0.2s;
-}
-
-.btn-submit:hover {
-    background: #0d4633;
 }
 
 /* Footer */
@@ -449,6 +282,118 @@ body {
         margin-top: 28px;
     }
 }
+
+/* Per-resource editing controls: the original resource card design is retained. */
+.resource-card-wrap {
+    position: relative;
+    min-width: 0;
+}
+.resource-card-wrap .link-card {
+    height: 100%;
+}
+.resource-edit-button {
+    position: absolute;
+    top: 9px;
+    right: 10px;
+    z-index: 2;
+    border: 1px solid #d6e3db;
+    border-radius: 7px;
+    padding: 4px 8px;
+    background: rgba(255,255,255,.96);
+    color: #145c43;
+    font: 600 10px "Segoe UI", Arial, sans-serif;
+    cursor: pointer;
+    opacity: .82;
+}
+.resource-edit-button:hover,
+.resource-edit-button:focus {
+    opacity: 1;
+    background: #e7f2eb;
+    outline: 2px solid rgba(57,131,101,.18);
+}
+.resource-editor-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 18px;
+    background: rgba(16, 39, 29, .48);
+}
+.resource-editor-backdrop[hidden] { display: none; }
+.resource-editor {
+    width: min(100%, 490px);
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 25px;
+    border-radius: 16px;
+    background: #fff;
+    color: #24372f;
+    box-shadow: 0 18px 55px rgba(0,0,0,.22);
+}
+.resource-editor h2 {
+    margin: 0 0 6px;
+    color: #103d32;
+    font-size: 21px;
+}
+.resource-editor .editor-intro {
+    margin: 0 0 19px;
+    color: #718078;
+    font-size: 13px;
+    line-height: 1.5;
+}
+.resource-editor label {
+    display: block;
+    margin: 12px 0 6px;
+    color: #40594b;
+    font-size: 12px;
+    font-weight: 700;
+}
+.resource-editor input,
+.resource-editor textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 11px 12px;
+    border: 1px solid #d6e3db;
+    border-radius: 8px;
+    color: #24372f;
+    background: #fff;
+    font: 13px "Segoe UI", Arial, sans-serif;
+}
+.resource-editor textarea { min-height: 76px; resize: vertical; }
+.resource-editor input:focus,
+.resource-editor textarea:focus {
+    outline: 2px solid rgba(57,131,101,.16);
+    border-color: #398365;
+}
+.resource-editor-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9px;
+    margin-top: 19px;
+}
+.resource-editor-actions button {
+    border: 0;
+    border-radius: 8px;
+    padding: 10px 14px;
+    cursor: pointer;
+    font: 600 12px "Segoe UI", Arial, sans-serif;
+}
+.resource-save { background: #145c43; color: #fff; }
+.resource-cancel { background: #edf4ef; color: #244a39; }
+.resource-download { background: #f3eee1; color: #5a4824; }
+.resource-editor-status {
+    min-height: 16px;
+    margin: 12px 0 0;
+    color: #38694f;
+    font-size: 12px;
+    line-height: 1.5;
+}
+@media(max-width:550px) {
+    .resource-edit-button { top: 7px; right: 7px; }
+}
+
 </style>
 </head>
 
@@ -473,39 +418,137 @@ body {
         </div>
     </header>
 
-    <!-- RESOURCES HEADING -->
+    <!-- RESOURCES -->
     <div class="section-heading">
-        <div>
-            <h2>Essential Resources</h2>
-            <span id="resourceCountText">LOADING RESOURCES...</span>
-        </div>
-        <div class="header-actions">
-            <button class="btn-add" onclick="openAddModal()">＋ Add Resource</button>
-        </div>
+        <h2>Essential Resources</h2>
+        <span>QUICK ACCESS PORTAL</span>
     </div>
 
-    <!-- SEARCH & FILTERS -->
-    <div class="controls-wrapper">
-        <div class="search-wrapper">
-            <input
-                type="text"
-                id="searchInput"
-                placeholder="🔍  Search resources by title, description, or category..."
-                onkeyup="filterLinks()"
-            >
-        </div>
-        <div class="category-chips" id="categoryChips">
-            <button class="category-chip active" onclick="selectCategory('All')">All</button>
-        </div>
+    <!-- SEARCH -->
+    <div class="search-wrapper">
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="🔍  Search resources..."
+            onkeyup="searchLinks()"
+        >
     </div>
 
-    <!-- LINK CARDS CONTAINER -->
+    <!-- LINK CARDS -->
     <div class="link-container" id="linkContainer">
-        <!-- Loaded dynamically from API -->
-    </div>
 
-    <div class="no-results" id="noResults">
-        No matching resources found. Try another search.
+        <div class="resource-card-wrap"><a class="link-card"
+           href="https://studentbridgew.sharepoint.com/:x:/s/CommunityHealthPrevention/IQA6cERn_T9xTaCZkqyyP52PAdrAQMnfyZ_MexRJVPSOHD0?email=SGARCIACHINGO%40student.bridgew.edu&e=Ip2vjP&isSPOFile=1&ovuser=48ec3bf8-d165-4eab-bbee-f8d5307f46e1%2CUJANGAM%40bridgew.edu&wdExp=TEAMS-TREATMENT&web=1&clickparams=eyJBcHBOYW1lIjoiVGVhbXMtV2ViIiwiQXBwVmVyc2lvbiI6IjE0MTUvMjYxMDAyMTIwMTgifQ%3D%3D"
+           target="_blank" rel="noopener noreferrer">
+            <div class="icon-box">📊</div>
+            <div class="card-info">
+                <div class="card-number">RESOURCE 01</div>
+                <div class="card-title">Inventory Tracker</div>
+                <div class="card-subtitle">Inventory & stock management</div>
+            </div>
+            <div class="arrow">›</div>
+        </a><button type="button" class="resource-edit-button" aria-label="Edit this resource" title="Edit this resource">Edit</button></div>
+
+        <div class="resource-card-wrap"><a class="link-card"
+           href="https://drive.google.com/drive/folders/1IE618Otm6s4WpN8gnMIKKbkp7pvTE14i"
+           target="_blank" rel="noopener noreferrer">
+            <div class="icon-box">📚</div>
+            <div class="card-info">
+                <div class="card-number">RESOURCE 02</div>
+                <div class="card-title">Literature Folder</div>
+                <div class="card-subtitle">Educational materials & literature</div>
+            </div>
+            <div class="arrow">›</div>
+        </a><button type="button" class="resource-edit-button" aria-label="Edit this resource" title="Edit this resource">Edit</button></div>
+
+        <div class="resource-card-wrap"><a class="link-card"
+           href="https://iqtechportal.com/Machine"
+           target="_blank" rel="noopener noreferrer">
+            <div class="icon-box">⚙️</div>
+            <div class="card-info">
+                <div class="card-number">RESOURCE 03</div>
+                <div class="card-title">IQ Tech Portal</div>
+                <div class="card-subtitle">Machine management portal</div>
+            </div>
+            <div class="arrow">›</div>
+        </a><button type="button" class="resource-edit-button" aria-label="Edit this resource" title="Edit this resource">Edit</button></div>
+
+        <div class="resource-card-wrap"><a class="link-card"
+           href="https://www.avery.com/account/projects"
+           target="_blank" rel="noopener noreferrer">
+            <div class="icon-box">🏷️</div>
+            <div class="card-info">
+                <div class="card-number">RESOURCE 04</div>
+                <div class="card-title">Avery Projects</div>
+                <div class="card-subtitle">Labels & design projects</div>
+            </div>
+            <div class="arrow">›</div>
+        </a><button type="button" class="resource-edit-button" aria-label="Edit this resource" title="Edit this resource">Edit</button></div>
+
+        <div class="resource-card-wrap"><a class="link-card"
+           href="https://form.jotform.com/260143993326156"
+           target="_blank" rel="noopener noreferrer">
+            <div class="icon-box">📝</div>
+            <div class="card-info">
+                <div class="card-number">RESOURCE 05</div>
+                <div class="card-title">CHP Order Form</div>
+                <div class="card-subtitle">Submit supply orders</div>
+            </div>
+            <div class="arrow">›</div>
+        </a><button type="button" class="resource-edit-button" aria-label="Edit this resource" title="Edit this resource">Edit</button></div>
+
+        <div class="resource-card-wrap"><a class="link-card"
+           href="https://studentbridgew.sharepoint.com/:w:/r/sites/CommunityHealthPrevention/_layouts/15/Doc.aspx?action=edit&sourcedoc=%7B3c70191b-8725-4df5-a61a-d01f5ba385ca%7D&wdExp=TEAMS-TREATMENT&web=1"
+           target="_blank" rel="noopener noreferrer">
+            <div class="icon-box">🔐</div>
+            <div class="card-info">
+                <div class="card-number">RESOURCE 06</div>
+                <div class="card-title">CHP Platforms Credentials</div>
+                <div class="card-subtitle">Platform access information</div>
+            </div>
+            <div class="arrow">›</div>
+        </a><button type="button" class="resource-edit-button" aria-label="Edit this resource" title="Edit this resource">Edit</button></div>
+
+        <div class="resource-card-wrap"><a class="link-card"
+           href="https://studentbridgew.sharepoint.com/sites/HealthPromotion"
+           target="_blank" rel="noopener noreferrer">
+            <div class="icon-box">🏛️</div>
+            <div class="card-info">
+                <div class="card-number">RESOURCE 07</div>
+                <div class="card-title">About CHP</div>
+                <div class="card-subtitle">CHP information & overview</div>
+            </div>
+            <div class="arrow">›</div>
+        </a><button type="button" class="resource-edit-button" aria-label="Edit this resource" title="Edit this resource">Edit</button></div>
+
+        <div class="resource-card-wrap"><a class="link-card"
+           href="https://www.jotform.com/app/252333785202150"
+           target="_blank" rel="noopener noreferrer">
+            <div class="icon-box">📅</div>
+            <div class="card-info">
+                <div class="card-number">RESOURCE 08</div>
+                <div class="card-title">SVAS Center App</div>
+                <div class="card-subtitle">App to Order Vending Machines Supplies</div>
+            </div>
+            <div class="arrow">›</div>
+        </a><button type="button" class="resource-edit-button" aria-label="Edit this resource" title="Edit this resource">Edit</button></div>
+
+        <div class="resource-card-wrap"><a class="link-card"
+           href="https://studentbridgew.sharepoint.com/:f:/r/sites/CommunityHealthPrevention/Shared%20Documents/CHP%20Resources%20and%20Initiatives/CHP%20New%20Student%20Employee%20Training?d=wc78bbb515ac64b6a85543828f055afa1&csf=1&web=1&e=JiKuVs"
+           target="_blank" rel="noopener noreferrer">
+            <div class="icon-box">📁</div>
+            <div class="card-info">
+                <div class="card-number">RESOURCE 09</div>
+                <div class="card-title">Student Guides & Attachments</div>
+                <div class="card-subtitle">Training & onboarding documents</div>
+            </div>
+            <div class="arrow">›</div>
+        </a><button type="button" class="resource-edit-button" aria-label="Edit this resource" title="Edit this resource">Edit</button></div>
+
+        <div class="no-results" id="noResults">
+            No matching resources found. Try another search.
+        </div>
+
     </div>
 
     <!-- FOOTER -->
@@ -519,168 +562,185 @@ body {
 
 </div>
 
-<!-- ADD RESOURCE MODAL -->
-<div class="modal-overlay" id="addModal">
-    <div class="modal-card">
-        <div class="modal-header">
-            <h3>Add New Resource</h3>
-            <button class="btn-close" onclick="closeAddModal()">&times;</button>
-        </div>
-        <form id="addResourceForm" onsubmit="handleCreateResource(event)">
-            <div class="form-group">
-                <label>Resource Title *</label>
-                <input type="text" id="resTitle" required placeholder="e.g. Training Portal">
+
+<!-- Individual resource editor -->
+<div class="resource-editor-backdrop" id="resourceEditorBackdrop" hidden>
+    <section class="resource-editor" role="dialog" aria-modal="true"
+             aria-labelledby="resourceEditorTitle">
+        <h2 id="resourceEditorTitle">Edit resource</h2>
+        <p class="editor-intro">Update this resource's information. The card design will stay the same.</p>
+        <form id="resourceEditorForm">
+            <label for="resourceTitleInput">Card title</label>
+            <input id="resourceTitleInput" type="text" maxlength="100" required>
+
+            <label for="resourceSubtitleInput">Card subtitle / description</label>
+            <textarea id="resourceSubtitleInput" maxlength="180" required></textarea>
+
+            <label for="resourceUrlInput">Destination link</label>
+            <input id="resourceUrlInput" type="url" placeholder="https://..." required>
+
+            <div class="resource-editor-actions">
+                <button type="submit" class="resource-save">Save changes</button>
+                <button type="button" class="resource-cancel" id="cancelResourceEdit">Cancel</button>
             </div>
-            <div class="form-group">
-                <label>Subtitle / Description</label>
-                <input type="text" id="resSubtitle" placeholder="e.g. Team documentation & onboarding">
-            </div>
-            <div class="form-group">
-                <label>Direct URL *</label>
-                <input type="url" id="resUrl" required placeholder="https://...">
-            </div>
-            <div class="form-group">
-                <label>Category</label>
-                <input type="text" id="resCategory" placeholder="e.g. Operations, Education, Management">
-            </div>
-            <div class="form-group">
-                <label>Emoji Icon</label>
-                <input type="text" id="resIcon" maxlength="4" value="📌" placeholder="📌">
-            </div>
-            <button type="submit" class="btn-submit">Add Resource</button>
+            <p class="resource-editor-status" id="resourceEditorStatus" role="status" aria-live="polite"></p>
         </form>
-    </div>
+    </section>
 </div>
 
-<script>
-let allResources = [];
-let activeCategory = 'All';
 
-async function fetchResources() {
+<script>
+let currentlyEditingCard = null;
+
+const RESOURCE_STORAGE_KEY = "chp-resource-hub-personal-edits-v1";
+const resourceCards = Array.from(document.querySelectorAll(".link-card"));
+
+function searchLinks() {
+    const input = document.getElementById("searchInput").value.toLowerCase();
+    const cards = document.querySelectorAll(".link-card");
+    let visibleCount = 0;
+
+    cards.forEach(card => {
+        const matches = card.innerText.toLowerCase().includes(input);
+        card.parentElement.style.display = matches ? "" : "none";
+        if (matches) visibleCount++;
+    });
+
+    document.getElementById("noResults").style.display =
+        visibleCount === 0 ? "block" : "none";
+}
+
+/* Restore this person's saved card information when this HTML file is opened. */
+function restorePersonalEdits() {
     try {
-        const res = await fetch('/api/resources');
-        const data = await res.json();
-        if (data.success) {
-            allResources = data.data;
-            renderCategories();
-            renderResources(allResources);
-        }
-    } catch (err) {
-        console.error('Failed to load resources:', err);
+        const saved = JSON.parse(localStorage.getItem(RESOURCE_STORAGE_KEY) || "{}");
+
+        resourceCards.forEach((card, index) => {
+            const item = saved[index];
+            if (!item) return;
+
+            if (typeof item.title === "string") {
+                card.querySelector(".card-title").textContent = item.title;
+            }
+            if (typeof item.subtitle === "string") {
+                card.querySelector(".card-subtitle").textContent = item.subtitle;
+            }
+            if (typeof item.url === "string") {
+                card.href = item.url;
+            }
+
+            const editButton = card.parentElement.querySelector(".resource-edit-button");
+            if (editButton) {
+                editButton.setAttribute(
+                    "aria-label",
+                    "Edit " + card.querySelector(".card-title").textContent
+                );
+            }
+        });
+    } catch (error) {
+        console.warn("Personal resource edits could not be restored in this browser.", error);
     }
 }
 
-function renderCategories() {
-    const categories = ['All', ...new Set(allResources.map(r => r.category || 'General'))];
-    const container = document.getElementById('categoryChips');
-    container.innerHTML = categories.map(cat => `
-        <button class="category-chip ${cat === activeCategory ? 'active' : ''}" onclick="selectCategory('${cat}')">
-            ${cat}
-        </button>
-    `).join('');
+/* Save all current cards to this browser only. */
+function savePersonalEdits() {
+    const saved = {};
+
+    resourceCards.forEach((card, index) => {
+        saved[index] = {
+            title: card.querySelector(".card-title").textContent,
+            subtitle: card.querySelector(".card-subtitle").textContent,
+            url: card.getAttribute("href")
+        };
+    });
+
+    try {
+        localStorage.setItem(RESOURCE_STORAGE_KEY, JSON.stringify(saved));
+        return true;
+    } catch (error) {
+        console.error("Could not save personal resource edits.", error);
+        return false;
+    }
 }
 
-function selectCategory(cat) {
-    activeCategory = cat;
-    renderCategories();
-    filterLinks();
+const editorBackdrop = document.getElementById("resourceEditorBackdrop");
+const editorForm = document.getElementById("resourceEditorForm");
+const editorStatus = document.getElementById("resourceEditorStatus");
+
+restorePersonalEdits();
+
+document.querySelectorAll(".resource-edit-button").forEach(button => {
+    button.addEventListener("click", () => {
+        currentlyEditingCard = button.parentElement.querySelector(".link-card");
+
+        document.getElementById("resourceEditorTitle").textContent =
+            "Edit " + currentlyEditingCard.querySelector(".card-title").textContent;
+        document.getElementById("resourceTitleInput").value =
+            currentlyEditingCard.querySelector(".card-title").textContent;
+        document.getElementById("resourceSubtitleInput").value =
+            currentlyEditingCard.querySelector(".card-subtitle").textContent;
+        document.getElementById("resourceUrlInput").value =
+            currentlyEditingCard.getAttribute("href");
+
+        editorStatus.textContent = "";
+        editorBackdrop.hidden = false;
+        document.getElementById("resourceTitleInput").focus();
+    });
+});
+
+function closeResourceEditor() {
+    editorBackdrop.hidden = true;
+    currentlyEditingCard = null;
 }
 
-function renderResources(resources) {
-    const container = document.getElementById("linkContainer");
-    const countText = document.getElementById("resourceCountText");
-    const noResults = document.getElementById("noResults");
+document.getElementById("cancelResourceEdit").addEventListener("click", closeResourceEditor);
 
-    countText.innerText = `${resources.length} ACTIVE RESOURCE${resources.length === 1 ? '' : 'S'}`;
+editorBackdrop.addEventListener("click", event => {
+    if (event.target === editorBackdrop) closeResourceEditor();
+});
 
-    if (resources.length === 0) {
-        container.innerHTML = '';
-        noResults.style.display = 'block';
+editorForm.addEventListener("submit", event => {
+    event.preventDefault();
+    if (!currentlyEditingCard) return;
+
+    const title = document.getElementById("resourceTitleInput").value.trim();
+    const subtitle = document.getElementById("resourceSubtitleInput").value.trim();
+    const url = document.getElementById("resourceUrlInput").value.trim();
+
+    let parsedUrl;
+    try {
+        parsedUrl = new URL(url);
+        if (!["http:", "https:"].includes(parsedUrl.protocol)) throw new Error();
+    } catch (_) {
+        editorStatus.textContent = "Enter a valid link beginning with https://";
         return;
     }
 
-    noResults.style.display = 'none';
-    container.innerHTML = resources.map((item, index) => {
-        const displayNumber = item.id < 10 ? `0${item.id}` : `${item.id}`;
-        return `
-            <a class="link-card" href="${item.url}" target="_blank" rel="noopener noreferrer">
-                <div class="icon-box">${item.icon || '🔗'}</div>
-                <div class="card-info">
-                    <div class="card-meta">
-                        <div class="card-number">RESOURCE ${displayNumber}</div>
-                        ${item.category ? `<div class="card-tag">${item.category}</div>` : ''}
-                    </div>
-                    <div class="card-title">${escapeHtml(item.title)}</div>
-                    <div class="card-subtitle">${escapeHtml(item.subtitle || '')}</div>
-                </div>
-                <div class="arrow">›</div>
-            </a>
-        `;
-    }).join('');
-}
-
-function filterLinks() {
-    const search = document.getElementById("searchInput").value.toLowerCase();
-    const filtered = allResources.filter(item => {
-        const matchCat = activeCategory === 'All' || (item.category && item.category.toLowerCase() === activeCategory.toLowerCase());
-        const matchSearch = !search || 
-            (item.title && item.title.toLowerCase().includes(search)) ||
-            (item.subtitle && item.subtitle.toLowerCase().includes(search)) ||
-            (item.category && item.category.toLowerCase().includes(search));
-        return matchCat && matchSearch;
-    });
-
-    renderResources(filtered);
-}
-
-function openAddModal() {
-    document.getElementById('addModal').style.display = 'flex';
-}
-
-function closeAddModal() {
-    document.getElementById('addModal').style.display = 'none';
-    document.getElementById('addResourceForm').reset();
-    document.getElementById('resIcon').value = '📌';
-}
-
-async function handleCreateResource(e) {
-    e.preventDefault();
-    const title = document.getElementById('resTitle').value;
-    const subtitle = document.getElementById('resSubtitle').value;
-    const url = document.getElementById('resUrl').value;
-    const category = document.getElementById('resCategory').value || 'General';
-    const icon = document.getElementById('resIcon').value || '📌';
-
-    try {
-        const res = await fetch('/api/resources', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ title, subtitle, url, category, icon })
-        });
-        const result = await res.json();
-        if (result.success) {
-            closeAddModal();
-            fetchResources();
-        } else {
-            alert('Error adding resource: ' + result.error);
-        }
-    } catch (err) {
-        alert('Server request failed.');
+    if (!title || !subtitle) {
+        editorStatus.textContent = "Please complete the title and subtitle.";
+        return;
     }
-}
 
-function escapeHtml(str) {
-    return str
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-}
+    currentlyEditingCard.href = parsedUrl.href;
+    currentlyEditingCard.querySelector(".card-title").textContent = title;
+    currentlyEditingCard.querySelector(".card-subtitle").textContent = subtitle;
 
-// Initial load
-fetchResources();
+    const editButton = currentlyEditingCard.parentElement.querySelector(".resource-edit-button");
+    editButton.setAttribute("aria-label", "Edit " + title);
+
+    if (savePersonalEdits()) {
+        editorStatus.textContent =
+            "Saved! Your changes are updated on this page and stored in this browser for your next visit.";
+    } else {
+        editorStatus.textContent =
+            "The card is updated for this session, but this browser blocked local saving. Check browser storage settings.";
+    }
+
+    // Keep the edited card visible and refresh search results if a search is active.
+    searchLinks();
+});
 </script>
+
 
 </body>
 </html>
