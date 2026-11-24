@@ -203,12 +203,18 @@ body {
     flex-direction: column;
 }
 
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
 .card-number {
     color: #8a9b90;
     font-size: 10px;
     letter-spacing: 1.5px;
     font-weight: 700;
-    margin-bottom: 5px;
 }
 
 .card-title {
@@ -231,7 +237,7 @@ body {
     display: flex;
     align-items: center;
     gap: 7px;
-    margin-top: 10px;
+    margin-top: 9px;
 }
 
 /* Crisp green category badge */
@@ -249,7 +255,7 @@ body {
     line-height: 1.3;
 }
 
-/* Crisp edit button */
+/* Crisp edit button in the header */
 .resource-edit-button {
     border: 1.5px solid #8ba898;
     border-radius: 6px;
@@ -583,13 +589,13 @@ function renderCards(resources) {
                 <a class="link-card" href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer">
                     <div class="icon-box">${item.icon || '🔗'}</div>
                     <div class="card-info">
-                        <div class="card-number">RESOURCE ${displayNumber}</div>
-                        <div class="card-title">${escapeHtml(item.title)}</div>
-                        <div class="card-subtitle">${escapeHtml(item.subtitle || '')}</div>
-                        <div class="card-footer-controls">
-                            ${categoryTag ? `<span class="resource-badge-btn">${categoryTag}</span>` : ''}
+                        <div class="card-header">
+                            <div class="card-number">RESOURCE ${displayNumber}</div>
                             <button type="button" class="resource-edit-button" onclick="event.preventDefault(); event.stopPropagation(); openEditor(${item.id})" aria-label="Edit ${escapeHtml(item.title)}" title="Edit this resource">Edit</button>
                         </div>
+                        <div class="card-title">${escapeHtml(item.title)}</div>
+                        <div class="card-subtitle">${escapeHtml(item.subtitle || '')}</div>
+                        ${categoryTag ? `<div class="card-footer-controls"><span class="resource-badge-btn">${categoryTag}</span></div>` : ''}
                     </div>
                     <div class="arrow">›</div>
                 </a>
