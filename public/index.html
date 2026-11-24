@@ -159,7 +159,7 @@ body {
     align-items: center;
     gap: 16px;
     background: rgba(255,255,255,.92);
-    padding: 23px 19px;
+    padding: 20px 19px;
     border: 1px solid rgba(205,221,211,.8);
     border-radius: 15px;
     text-decoration: none;
@@ -167,7 +167,7 @@ body {
     box-shadow: 0 5px 17px rgba(28,70,48,.055);
     transition: transform .25s ease, box-shadow .25s ease,
                 border-color .25s ease;
-    min-height: 108px;
+    min-height: 118px;
 }
 
 .link-card:hover {
@@ -199,13 +199,17 @@ body {
 .card-info {
     flex: 1;
     min-width: 0;
+    display: flex;
+    flex-direction: column;
 }
 
 .card-meta {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 8px;
-    margin-bottom: 6px;
+    gap: 10px;
+    margin-bottom: 7px;
+    min-height: 24px;
 }
 
 .card-number {
@@ -213,19 +217,50 @@ body {
     font-size: 10px;
     letter-spacing: 1.5px;
     font-weight: 700;
+    white-space: nowrap;
 }
 
-/* Green category tag badge */
-.card-tag {
-    font-size: 10px;
-    background: #e2ede7;
-    color: #17664b;
-    border: 1px solid rgba(20, 92, 67, 0.25);
+.card-top-controls {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: auto;
+}
+
+/* Clean green category badge button */
+.resource-badge-btn {
+    border: 1.5px solid #2d7a5b;
+    border-radius: 6px;
     padding: 2px 8px;
-    border-radius: 10px;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    display: inline-block;
+    background: #eef7f2;
+    color: #114c37;
+    font: 700 10.5px "Segoe UI", Arial, sans-serif;
+    letter-spacing: 0.3px;
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+    user-select: none;
+    line-height: 1.4;
+}
+
+/* Clean edit button */
+.resource-edit-button {
+    border: 1.5px solid #8ba898;
+    border-radius: 6px;
+    padding: 2px 9px;
+    background: #ffffff;
+    color: #145c43;
+    font: 700 10.5px "Segoe UI", Arial, sans-serif;
+    cursor: pointer;
+    white-space: nowrap;
+    line-height: 1.4;
+    transition: all 0.2s ease;
+}
+.resource-edit-button:hover,
+.resource-edit-button:focus {
+    background: #145c43;
+    color: #ffffff;
+    border-color: #145c43;
 }
 
 .card-title {
@@ -302,58 +337,13 @@ body {
     }
 }
 
-/* Card wrapper & header controls */
+/* Card wrapper */
 .resource-card-wrap {
     position: relative;
     min-width: 0;
 }
 .resource-card-wrap .link-card {
     height: 100%;
-}
-
-.card-top-controls {
-    position: absolute;
-    top: 12px;
-    right: 14px;
-    z-index: 2;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-/* Crisp green category badge button */
-.resource-badge-btn {
-    border: 1.5px solid #2d7a5b;
-    border-radius: 8px;
-    padding: 4px 10px;
-    background: #eef7f2;
-    color: #114c37;
-    font: 700 11px "Segoe UI", Arial, sans-serif;
-    letter-spacing: 0.3px;
-    display: inline-flex;
-    align-items: center;
-    box-shadow: 0 1px 3px rgba(16, 61, 50, 0.08);
-    user-select: none;
-}
-
-/* Crisp edit button */
-.resource-edit-button {
-    border: 1.5px solid #8ba898;
-    border-radius: 8px;
-    padding: 4px 11px;
-    background: #ffffff;
-    color: #145c43;
-    font: 700 11px "Segoe UI", Arial, sans-serif;
-    cursor: pointer;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
-    transition: all 0.2s ease;
-}
-.resource-edit-button:hover,
-.resource-edit-button:focus {
-    background: #145c43;
-    color: #ffffff;
-    border-color: #145c43;
-    box-shadow: 0 2px 6px rgba(20, 92, 67, 0.25);
 }
 
 .resource-editor-backdrop {
@@ -571,16 +561,16 @@ function renderCards(resources) {
                     <div class="card-info">
                         <div class="card-meta">
                             <div class="card-number">RESOURCE ${displayNumber}</div>
+                            <div class="card-top-controls">
+                                ${categoryTag ? `<span class="resource-badge-btn">${categoryTag}</span>` : ''}
+                                <button type="button" class="resource-edit-button" onclick="event.preventDefault(); event.stopPropagation(); openEditor(${item.id})" aria-label="Edit ${escapeHtml(item.title)}" title="Edit this resource">Edit</button>
+                            </div>
                         </div>
                         <div class="card-title">${escapeHtml(item.title)}</div>
                         <div class="card-subtitle">${escapeHtml(item.subtitle || '')}</div>
                     </div>
                     <div class="arrow">›</div>
                 </a>
-                <div class="card-top-controls">
-                    ${categoryTag ? `<span class="resource-badge-btn">${categoryTag}</span>` : ''}
-                    <button type="button" class="resource-edit-button" onclick="openEditor(${item.id})" aria-label="Edit ${escapeHtml(item.title)}" title="Edit this resource">Edit</button>
-                </div>
             </div>
         `;
     }).join("");
